@@ -7,7 +7,9 @@ const scorecards = require('../scorecards');
  * @route GET /api/v1/scorecards
  */
 exports.getScorecards = async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   try {
+    // TODO: Consider how to set cors header
     res.json(scorecards);
   } catch (error) {
     return res.status(500).json({
@@ -22,9 +24,11 @@ exports.getScorecards = async (req, res, next) => {
  * @route GET /api/v1/scorecards/:id
  */
 exports.getScorecardById = async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   try {
     const found = scorecards.some(scorecard => scorecard.id === req.params.id);
     if (found) {
+      
       res.json(scorecards.filter(scorecard => scorecard.id === req.params.id));
     } else {
       res.status(400).json({ msg: `No scorecard with id of ${req.params.id}` });
@@ -42,6 +46,7 @@ exports.getScorecardById = async (req, res, next) => {
  * @route POST /api/v1/scorecards
  */
 exports.addScorecard = async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   try {
     const newScorecard = {
       id: uuid.v4(),
@@ -78,6 +83,7 @@ exports.addScorecard = async (req, res, next) => {
  * @route PUT /api/v1/scorecards/:id
  */
 exports.updateScorecard = async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   try {
     const found = scorecards.some(scorecard => scorecard.id === req.params.id);
 
@@ -118,6 +124,7 @@ exports.updateScorecard = async (req, res, next) => {
  * @returns 
  */
 exports.deleteScorecard = async (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   try {
     const indexToRemove = scorecards.findIndex(scorecard => scorecard.id === req.params.id);
 
