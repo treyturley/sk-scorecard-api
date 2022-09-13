@@ -93,7 +93,6 @@ Response: JSON body with the updated scorecard
   
 ```js
 {
-    "name": "new_scorecard",
     "scorecard": [
         {
             "playerName": "Foo",
