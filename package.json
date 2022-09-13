@@ -1,0 +1,22 @@
+{
+  "name": "sk_scorecard-api",
+  "version": "1.0.0",
+  "description": "An API to support the sk-scorecard react project by providing a server side backend to keep track of scorecards.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server"
+  },
+  "author": "Trey Turley",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
