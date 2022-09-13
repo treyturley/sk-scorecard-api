@@ -12,7 +12,9 @@ const app = express();
 
 // add body parser middleware to handle post bodies
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
+// TODO: Determine if we need this or if just json middleware is enough
+app.use(express.urlencoded({ extended: false })); 
 
 // TODO: consider if we want to also add logging for PROD
 // if env is dev, do some logging
