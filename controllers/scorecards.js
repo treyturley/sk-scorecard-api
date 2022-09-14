@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const hri = require('human-readable-ids');
 const scorecards = require('../scorecards');
 
 
@@ -49,7 +49,7 @@ exports.addScorecard = async (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   try {
     const newScorecard = {
-      id: uuid.v4(),
+      id: hri.humanReadableIds.random(),
       name: req.body.name,
       gameStatus: "STARTED",
       scorecard: req.body.scorecard,
