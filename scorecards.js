@@ -25,7 +25,7 @@ const scorecards = [
         "roundTotal": -10
       },
       {
-        "playerName": "foo",
+        "playerName": "Foo",
         "roundNumber": 1,
         "bid": 0,
         "tricks": 0,
@@ -33,7 +33,7 @@ const scorecards = [
         "roundTotal": 10
       },
       {
-        "playerName": "bar",
+        "playerName": "Bar",
         "roundNumber": 1,
         "bid": 0,
         "tricks": 0,
