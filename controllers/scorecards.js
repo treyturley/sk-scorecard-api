@@ -27,8 +27,7 @@ exports.getScorecardById = async (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   try {
     const found = scorecards.some(scorecard => scorecard.id === req.params.id);
-    if (found) {
-      
+    if (found) {      
       res.json(scorecards.filter(scorecard => scorecard.id === req.params.id));
     } else {
       res.status(400).json({ msg: `No scorecard with id of ${req.params.id}` });
@@ -51,7 +50,7 @@ exports.addScorecard = async (req, res, next) => {
     const newScorecard = {
       id: hri.humanReadableIds.random(),
       name: req.body.name,
-      gameStatus: "STARTED",
+      status: req.body.status,
       scorecard: req.body.scorecard,
       playerTotals: req.body.playerTotals
     }
@@ -63,6 +62,8 @@ exports.addScorecard = async (req, res, next) => {
 
     // add to server's scorecard array
     scorecards.push(newScorecard);
+
+    // console.log(newScorecard);
 
     // TODO: consider having the server save the current scorecards to a local file
 
@@ -93,12 +94,13 @@ exports.updateScorecard = async (req, res, next) => {
       scorecards.forEach(scorecard => {
         if (scorecard.id === req.params.id) {
           // update values that were in the body otherwise use old value
-          scorecard.gameStatus = newScorecard.gameStatus || scorecard.gameStatus;
+          scorecard.status = newScorecard.status || scorecard.status;
           scorecard.scorecard = newScorecard.scorecard || scorecard.scorecard;
           scorecard.playerTotals = newScorecard.playerTotals || scorecard.playerTotals;
 
           //send response with updated obj
           res.json(scorecard);
+          // console.log(scorecard);
 
           // TODO: Consider saving the updated scorecards array to a file
         }
@@ -106,9 +108,6 @@ exports.updateScorecard = async (req, res, next) => {
     } else {
       res.status(400).json({ msg: `No scorecard with id of ${req.params.id}` });
     }
-
-
-
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -134,10 +133,26 @@ exports.deleteScorecard = async (req, res, next) => {
       // TODO: Consider saving the updated scorecards array to a file
 
       res.status(204).send();
-      
+
     } else {
       res.status(400).json({ msg: `No scorecard with id of ${req.params.id}` });
     }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: 'Server Error'
+    });
+  }
+}
+
+
+exports.optionsScorecard = async (req, res, next) => {
+  // TODO: maybe review the headers in the request to make sure we want to serve this client
+  try {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header("Access-Control-Allow-Methods", "GET, PUT");
+    res.status(200).send();
   } catch (error) {
     return res.status(500).json({
       success: false,

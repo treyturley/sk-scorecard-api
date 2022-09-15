@@ -5,20 +5,23 @@ const {
   getScorecardById,
   addScorecard,
   updateScorecard,
-  deleteScorecard
+  deleteScorecard,
+  optionsScorecard
 } = require('../controllers/scorecards');
 
 
 // GET scorecards and POST a scoreacard
 router.route('/')
   .get(getScorecards)
-  .post(addScorecard);
+  .post(addScorecard)
+  .options(optionsScorecard);
 
 // GET/PUT/DELETE a scorecard by id
 router.route('/:id')
   .get(getScorecardById)
   .put(updateScorecard)
-  .delete(deleteScorecard);
+  .delete(deleteScorecard)
+  .options(optionsScorecard);
 
 
 module.exports = router;
