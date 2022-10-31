@@ -26,7 +26,8 @@ if (process.env.NODE_ENV === 'dev') {
 app.use('/api/v1/scorecards', require('./routes/scorecards'));
 
 // config port
-const PORT = process.env.PORT || 5000;
+// const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 // start server
 app.listen(PORT, console.log(`Server started in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));
