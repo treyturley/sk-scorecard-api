@@ -14,11 +14,11 @@ const app = express();
 app.use(express.json());
 
 // TODO: Determine if we need this or if just json middleware is enough
-app.use(express.urlencoded({ extended: false })); 
+app.use(express.urlencoded({ extended: false }));
 
 // TODO: consider if we want to also add logging for PROD
 // if env is dev, do some logging
-if(process.env.NODE_ENV === 'dev'){
+if (process.env.NODE_ENV === 'dev') {
   app.use(morgan('dev'));
 }
 
