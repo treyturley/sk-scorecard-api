@@ -1,0 +1,4 @@
+API:
+    docker build -t sk-api .
+    docker run --name sk-api -p 5000:5000 -d sk-api
+
