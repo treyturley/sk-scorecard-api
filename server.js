@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 // hook route into middleware here
-app.use('/api/sk-scorecard-api/v1/scorecards', require('./routes/scorecards'));
+app.use('/api/sk-scorecard-api', require('./routes/scorecards'));
 
 // config port
 // const PORT = process.env.PORT || 5000;

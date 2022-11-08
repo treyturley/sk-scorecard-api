@@ -11,13 +11,13 @@ const {
 
 
 // GET scorecards and POST a scoreacard
-router.route('/')
+router.route('/v1/scorecards')
   .get(getScorecards)
   .post(addScorecard)
   .options(optionsScorecard);
 
 // GET/PUT/DELETE a scorecard by id
-router.route('/:id')
+router.route('/v1/scorecards/:id')
   .get(getScorecardById)
   .put(updateScorecard)
   .delete(deleteScorecard)
