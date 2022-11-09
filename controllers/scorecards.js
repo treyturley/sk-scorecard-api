@@ -9,7 +9,6 @@ const scorecards = require('../scorecards');
 exports.getScorecards = async (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   try {
-    // TODO: Consider how to set cors header
     res.json(scorecards);
   } catch (error) {
     return res.status(500).json({
@@ -27,7 +26,7 @@ exports.getScorecardById = async (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   try {
     const found = scorecards.some(scorecard => scorecard.id === req.params.id);
-    if (found) {      
+    if (found) {
       res.json(scorecards.filter(scorecard => scorecard.id === req.params.id));
     } else {
       res.status(400).json({ msg: `No scorecard with id of ${req.params.id}` });
