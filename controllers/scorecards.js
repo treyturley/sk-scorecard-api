@@ -51,7 +51,8 @@ exports.addScorecard = async (req, res, next) => {
       name: req.body.name,
       status: req.body.status,
       scorecard: req.body.scorecard,
-      playerTotals: req.body.playerTotals
+      playerTotals: req.body.playerTotals,
+      currentRound: req.body.currentRound
     }
 
     //check for incomplete scorecard
@@ -96,6 +97,7 @@ exports.updateScorecard = async (req, res, next) => {
           scorecard.status = newScorecard.status || scorecard.status;
           scorecard.scorecard = newScorecard.scorecard || scorecard.scorecard;
           scorecard.playerTotals = newScorecard.playerTotals || scorecard.playerTotals;
+          scorecard.currentRound = newScorecard.currentRound || scorecard.currentRound;
 
           //send response with updated obj
           res.json(scorecard);
