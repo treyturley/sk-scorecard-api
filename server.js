@@ -21,7 +21,7 @@ let io = null;
 
 // TODO: make the cors origin a variables that gets set per ENV instead of this weird if else thing
 // start server
-if (process.env.NODE_ENV === 'dev') {
+if (process.env.NODE_ENV === 'development') {
   io = new Server(app.listen(PORT, console.log(`Server started in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)), {
     cors: {
       origin: ["http://localhost:3000", "http://192.168.1.25:3000", "http://localhost:3001"] //this must match the source of the request,can be checked in browsers console with location cmd

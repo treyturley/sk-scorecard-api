@@ -29,7 +29,7 @@ docker build -f Dockerfile -t $container_name .
 
 # start container with new image
 echo starting $container_name
-docker run --name $container_name -p 5000:5000 -d $container_name
+docker run --name $container_name -p 5000:5000 -d -e NODE_ENV=production $container_name
 #docker start $container_name
 
 # prune any dangling images
