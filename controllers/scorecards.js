@@ -103,6 +103,9 @@ exports.updateScorecard = async (req, res, next) => {
           res.json(scorecard);
           // console.log(scorecard);
 
+          // push update to all sockets in this game room
+          req.io.to(scorecard.id).emit('update-game', scorecard);
+
           // TODO: Consider saving the updated scorecards array to a file
         }
       });
