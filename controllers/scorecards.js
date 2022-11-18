@@ -27,7 +27,7 @@ exports.getScorecardById = async (req, res, next) => {
   try {
     const found = scorecards.some(scorecard => scorecard.id === req.params.id);
     if (found) {
-      res.json(scorecards.filter(scorecard => scorecard.id === req.params.id));
+      res.json(scorecards.filter(scorecard => scorecard.id === req.params.id)[0]);
     } else {
       res.status(400).json({ msg: `No scorecard with id of ${req.params.id}` });
     }
