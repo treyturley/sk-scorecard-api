@@ -27,7 +27,7 @@ exports.getScorecardById = async (req, res, next) => {
   try {
     const found = scorecards.some(scorecard => scorecard.id === req.params.id);
     if (found) {
-      res.json(scorecards.filter(scorecard => scorecard.id === req.params.id));
+      res.json(scorecards.filter(scorecard => scorecard.id === req.params.id)[0]);
     } else {
       res.status(400).json({ msg: `No scorecard with id of ${req.params.id}` });
     }
@@ -102,6 +102,9 @@ exports.updateScorecard = async (req, res, next) => {
           //send response with updated obj
           res.json(scorecard);
           // console.log(scorecard);
+
+          // push update to all sockets in this game room
+          req.io.to(scorecard.id).emit('update-game', scorecard);
 
           // TODO: Consider saving the updated scorecards array to a file
         }
