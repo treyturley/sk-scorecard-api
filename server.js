@@ -44,8 +44,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // if env is dev, do some logging
 if (process.env.NODE_ENV === 'dev') {
-  app.use(morgan('dev'));
+
 }
+app.use(morgan('dev'));
 
 //disable all but error logs in prod
 // if (process.env.NODE_ENV === 'production') {
