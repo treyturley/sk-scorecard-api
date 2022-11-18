@@ -67,18 +67,25 @@ io.on('connection', function (socket) {
   // handle player request to join a game
   socket.on('join-game', (gameId, callback) => {
     socket.join(gameId);
+    socket.gameId = gameId;
     console.log(`${socket.id} is joining game ${gameId}`);
     callback('success');
   });
 
   // handle player request for scorecard
   socket.on('get-game', (gameid, callback) => {
+    console.log(`get-game checking for socket game. game: ${socket.gameId}`);
     callback(scorecards.filter(scorecard => scorecard.id === gameid)[0]);
   });
 
   socket.on("disconnect", (reason) => {
     console.log(`Socket ${socket.id} disconnected. Reason: ${reason}`);
-    console.log(`Current sockets still connected - ${io.of("/").sockets.size}`);
+    console.log(`Current sockets still connected to this server - ${io.of("/").sockets.size}`);
+    if (io.sockets.adapter.rooms.get(socket.gameId)) {
+      console.log(`Current sockets on game ${socket.gameId} - ${io.sockets.adapter.rooms.get(socket.gameId).size}`);
+    } else {
+      console.log(`No sockets connected to game ${socket.gameId}. Game room is closed.`)
+    }
   });
 });
 
