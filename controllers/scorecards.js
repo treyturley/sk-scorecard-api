@@ -148,7 +148,6 @@ exports.deleteScorecard = async (req, res, next) => {
 
 
 exports.optionsScorecard = async (req, res, next) => {
-  // TODO: maybe review the headers in the request to make sure we want to serve this client
   try {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Content-Type");
