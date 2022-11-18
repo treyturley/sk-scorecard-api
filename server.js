@@ -30,7 +30,6 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   io = new Server(app.listen(PORT, console.log(`Server started in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)), {
     cors: {
-      // TODO: see if this works or we need to include api path
       origin: "https://treyturley.com" //this must match the source of the request
     },
     path: "/api/sk-scorecard-api/"
@@ -48,14 +47,13 @@ if (process.env.NODE_ENV === 'dev') {
   app.use(morgan('dev'));
 }
 
-// disable all but error logs in prod
-// if (process.env.NODE_ENV === 'production') {
-//   if (!window.console) window.console = {};
-//   var methods = ["log", "debug", "warn", "info"];
-//   for (var i = 0; i < methods.length; i++) {
-//     console[methods[i]] = function () { };
-//   }
-// }
+//disable all but error logs in prod
+if (process.env.NODE_ENV === 'production') {
+  var methods = ["log", "debug", "warn", "info"];
+  for (var i = 0; i < methods.length; i++) {
+    console[methods[i]] = function () { };
+  }
+}
 
 io.on('connection', function (socket) {
   console.log(`New client connected with socket id: ${socket.id}`);
@@ -67,18 +65,25 @@ io.on('connection', function (socket) {
   // handle player request to join a game
   socket.on('join-game', (gameId, callback) => {
     socket.join(gameId);
+    socket.gameId = gameId;
     console.log(`${socket.id} is joining game ${gameId}`);
     callback('success');
   });
 
   // handle player request for scorecard
   socket.on('get-game', (gameid, callback) => {
+    console.log(`get-game checking for socket game. game: ${socket.gameId}`);
     callback(scorecards.filter(scorecard => scorecard.id === gameid)[0]);
   });
 
   socket.on("disconnect", (reason) => {
     console.log(`Socket ${socket.id} disconnected. Reason: ${reason}`);
-    console.log(`Current sockets still connected - ${io.of("/").sockets.size}`);
+    console.log(`Current sockets still connected to this server - ${io.of("/").sockets.size}`);
+    if (io.sockets.adapter.rooms.get(socket.gameId)) {
+      console.log(`Current sockets on game ${socket.gameId} - ${io.sockets.adapter.rooms.get(socket.gameId).size}`);
+    } else {
+      console.log(`No sockets connected to game ${socket.gameId}. Game room is closed.`)
+    }
   });
 });
 
