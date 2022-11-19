@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'development') {
     cors: {
       origin: "https://treyturley.com" //this must match the source of the request
     },
-    path: "/api/sk-scorecard-api/"
+    path: "/api/sk-scorecard-api/socket.io/"
   });
 }
 
@@ -44,17 +44,16 @@ app.use(express.urlencoded({ extended: false }));
 
 // if env is dev, do some logging
 if (process.env.NODE_ENV === 'dev') {
-
+  app.use(morgan('dev'));
 }
-app.use(morgan('dev'));
 
 //disable all but error logs in prod
-// if (process.env.NODE_ENV === 'production') {
-//   var methods = ["log", "debug", "warn", "info"];
-//   for (var i = 0; i < methods.length; i++) {
-//     console[methods[i]] = function () { };
-//   }
-// }
+if (process.env.NODE_ENV === 'production') {
+  var methods = ["log", "debug", "warn", "info"];
+  for (var i = 0; i < methods.length; i++) {
+    console[methods[i]] = function () { };
+  }
+}
 
 io.on('connection', function (socket) {
   console.log(`New client connected with socket id: ${socket.id}`);
