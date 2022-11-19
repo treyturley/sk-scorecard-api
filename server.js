@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'development') {
     cors: {
       origin: "https://treyturley.com" //this must match the source of the request
     },
-    path: "/api/sk-scorecard-api/"
+    path: "/api/sk-scorecard-api/socket.io/"
   });
 }
 
