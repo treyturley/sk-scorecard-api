@@ -4,7 +4,7 @@ const scorecards = require('../scorecards');
 
 /**
  * Get all scorecards
- * @route GET /api/v1/scorecards
+ * @route GET /v1/scorecards
  */
 exports.getScorecards = async (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -20,7 +20,7 @@ exports.getScorecards = async (req, res, next) => {
 
 /**
  * Get scorecard by id
- * @route GET /api/v1/scorecards/:id
+ * @route GET /v1/scorecards/:id
  */
 exports.getScorecardById = async (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -41,7 +41,7 @@ exports.getScorecardById = async (req, res, next) => {
 
 /**
  * add a scorecard
- * @route POST /api/v1/scorecards
+ * @route POST /v1/scorecards
  */
 exports.addScorecard = async (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -81,7 +81,7 @@ exports.addScorecard = async (req, res, next) => {
 
 /**
  * update a scorecard
- * @route PUT /api/v1/scorecards/:id
+ * @route PUT /v1/scorecards/:id
  */
 exports.updateScorecard = async (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -123,7 +123,7 @@ exports.updateScorecard = async (req, res, next) => {
 /**
  * 
  * delete a scorecard
- * @route DELETE /api/v1/scorecards/:id
+ * @route DELETE /v1/scorecards/:id
  * @returns 
  */
 exports.deleteScorecard = async (req, res, next) => {
