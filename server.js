@@ -17,23 +17,18 @@ const app = express();
 // config port
 const PORT = process.env.PORT || 5000;
 
-let io = null;
+let origin = process.env.PROD_CORS_ORIGIN;
 
-// TODO: make the cors origin a variables that gets set per ENV instead of this weird if else thing
-// start server
 if (process.env.NODE_ENV === 'development') {
-  io = new Server(app.listen(PORT, console.log(`Server started in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)), {
-    cors: {
-      origin: ["http://localhost:3000", "http://192.168.1.25:3000"] //this must match the source of the request,can be checked in browsers console with location cmd
-  });
-} else {
-  io = new Server(app.listen(PORT, console.log(`Server started in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)), {
-    cors: {
-      origin: "https://treyturley.com" //this must match the source of the request
-    },
-    path: "/api/sk-scorecard-api/socket.io/"
-  });
+  origin = process.env.DEV_CORS_ORIGIN;
 }
+
+const io = new Server(app.listen(PORT, console.log(`Server started in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)), {
+  cors: {
+    origin: origin
+  },
+  path: "/api/sk-scorecard-api/socket.io/"
+});
 
 // add body parser middleware to handle post bodies
 app.use(express.json());
