@@ -1,13 +1,18 @@
 const hri = require('human-readable-ids');
 const scorecards = require('../scorecards');
 
+let origin = process.env.PROD_CORS_ORIGIN;
+
+if (process.env.NODE_ENV === 'development') {
+  origin = process.env.DEV_CORS_ORIGIN;
+}
 
 /**
  * Get all scorecards
  * @route GET /v1/scorecards
  */
 exports.getScorecards = async (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", origin);
   try {
     res.json(scorecards);
   } catch (error) {
@@ -23,7 +28,7 @@ exports.getScorecards = async (req, res, next) => {
  * @route GET /v1/scorecards/:id
  */
 exports.getScorecardById = async (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", origin);
   try {
     const found = scorecards.some(scorecard => scorecard.id === req.params.id);
     if (found) {
@@ -44,7 +49,7 @@ exports.getScorecardById = async (req, res, next) => {
  * @route POST /v1/scorecards
  */
 exports.addScorecard = async (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", origin);
   try {
     const newScorecard = {
       id: hri.humanReadableIds.random(),
@@ -84,7 +89,7 @@ exports.addScorecard = async (req, res, next) => {
  * @route PUT /v1/scorecards/:id
  */
 exports.updateScorecard = async (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", origin);
   try {
     const found = scorecards.some(scorecard => scorecard.id === req.params.id);
 
@@ -127,7 +132,7 @@ exports.updateScorecard = async (req, res, next) => {
  * @returns 
  */
 exports.deleteScorecard = async (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", origin);
   try {
     const indexToRemove = scorecards.findIndex(scorecard => scorecard.id === req.params.id);
 
@@ -152,7 +157,7 @@ exports.deleteScorecard = async (req, res, next) => {
 
 exports.optionsScorecard = async (req, res, next) => {
   try {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", origin);
     res.header("Access-Control-Allow-Headers", "Content-Type");
     res.header("Access-Control-Allow-Methods", "GET, PUT");
     res.status(200).send();
