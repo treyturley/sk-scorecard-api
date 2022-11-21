@@ -68,7 +68,7 @@ exports.addScorecard = async (req, res, next) => {
     // TODO: consider having the server save the current scorecards to a local file
 
     // respond with newly created object
-    res.location('/api/v1/scorecards/' + newScorecard.id);
+    res.location('/api/sk-scorecard-api/v1/scorecards/' + newScorecard.id);
     res.status(201).json(newScorecard);
 
   } catch (error) {
