@@ -24,8 +24,7 @@ let io = null;
 if (process.env.NODE_ENV === 'development') {
   io = new Server(app.listen(PORT, console.log(`Server started in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)), {
     cors: {
-      origin: ["http://localhost:3000", "http://192.168.1.25:3000", "http://localhost:3001"] //this must match the source of the request,can be checked in browsers console with location cmd
-    }
+      origin: ["http://localhost:3000", "http://192.168.1.25:3000"] //this must match the source of the request,can be checked in browsers console with location cmd
   });
 } else {
   io = new Server(app.listen(PORT, console.log(`Server started in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)), {
