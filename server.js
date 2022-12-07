@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-const { Server } = require('socket.io')
+const { Server } = require('socket.io');
 
 const scorecards = require('./scorecards');
 
@@ -23,12 +23,21 @@ if (process.env.NODE_ENV === 'development') {
   origin = process.env.DEV_CORS_ORIGIN;
 }
 
-const io = new Server(app.listen(PORT, console.log(`Server started in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)), {
-  cors: {
-    origin: origin
-  },
-  path: "/api/sk-scorecard-api/socket.io/"
-});
+const io = new Server(
+  app.listen(
+    PORT,
+    console.log(
+      `Server started in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
+        .bold
+    )
+  ),
+  {
+    cors: {
+      origin: origin,
+    },
+    path: '/api/sk-scorecard-api/socket.io/',
+  }
+);
 
 // add body parser middleware to handle post bodies
 app.use(express.json());
@@ -43,9 +52,9 @@ if (process.env.NODE_ENV === 'dev') {
 
 //disable all but error logs in prod
 if (process.env.NODE_ENV === 'production') {
-  var methods = ["log", "debug", "warn", "info"];
+  var methods = ['log', 'debug', 'warn', 'info'];
   for (var i = 0; i < methods.length; i++) {
-    console[methods[i]] = function () { };
+    console[methods[i]] = function () {};
   }
 }
 
@@ -53,7 +62,7 @@ io.on('connection', function (socket) {
   console.log(`New client connected with socket id: ${socket.id}`);
 
   socket.on('chat message', function (data) {
-    io.emit('chat message', "Server: " + data);
+    io.emit('chat message', 'Server: ' + data);
   });
 
   // handle player request to join a game
@@ -67,16 +76,26 @@ io.on('connection', function (socket) {
   // handle player request for scorecard
   socket.on('get-game', (gameid, callback) => {
     console.log(`get-game checking for socket game. game: ${socket.gameId}`);
-    callback(scorecards.filter(scorecard => scorecard.id === gameid)[0]);
+    callback(scorecards.filter((scorecard) => scorecard.id === gameid)[0]);
   });
 
-  socket.on("disconnect", (reason) => {
+  socket.on('disconnect', (reason) => {
     console.log(`Socket ${socket.id} disconnected. Reason: ${reason}`);
-    console.log(`Current sockets still connected to this server - ${io.of("/").sockets.size}`);
+    console.log(
+      `Current sockets still connected to this server - ${
+        io.of('/').sockets.size
+      }`
+    );
     if (io.sockets.adapter.rooms.get(socket.gameId)) {
-      console.log(`Current sockets on game ${socket.gameId} - ${io.sockets.adapter.rooms.get(socket.gameId).size}`);
+      console.log(
+        `Current sockets on game ${socket.gameId} - ${
+          io.sockets.adapter.rooms.get(socket.gameId).size
+        }`
+      );
     } else {
-      console.log(`No sockets connected to game ${socket.gameId}. Game room is closed.`)
+      console.log(
+        `No sockets connected to game ${socket.gameId}. Game room is closed.`
+      );
     }
   });
 });
