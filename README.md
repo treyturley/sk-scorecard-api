@@ -1,6 +1,5 @@
 # sk-scorecard-api
-This api was created to support the sk-scorecard-react project by providing a backend that can keep track of active games.
-Currently the scorecards are kept in memory by the server however in the future a database will be used to store them.
+This api was created to support the sk-scorecard-react project by providing a backend that can keep track of active games. It supports CRUD operations for the scorecards and utilizes Socket.IO for pushing updates to the players in realtime.
 
 ## Supported Operations
 
