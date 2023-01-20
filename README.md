@@ -188,3 +188,7 @@ Response: JSON body with the updated scorecard
 ### Delete a Scorecard
 Endpoint: DELETE /api/v1/scorecards/:id
 Response: 204 No Content on successful deletion
+
+## Production Deployments
+
+Automated deployments to treyturley.com are configured for this project. Any changes made to the main branch will trigger a GitHub webhook which then starts a Jenkins pipeline to build and deploy the branch. Changes to main can only be made via pull request.
