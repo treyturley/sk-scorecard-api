@@ -1,5 +1,5 @@
 # sk-scorecard-api
-This api was created to support the sk-scorecard-react project by providing a backend that can keep track of active games. It supports CRUD operations for the scorecards and utilizes Socket.IO for pushing updates to the players in realtime.
+This api was created to support the [sk-scorecard-react](https://github.com/treyturley/sk-scorecard-react) project by providing a backend that can keep track of active games. It supports CRUD operations for the scorecards and utilizes Socket.IO for pushing updates to the players in realtime.
 
 ## Supported Operations
 
