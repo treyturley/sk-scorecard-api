@@ -76,7 +76,7 @@ io.on('connection', function (socket) {
   });
 
   // handle player request for scorecard
-  socket.on('get-game', (gameid, callback) => {
+  socket.on('get-game', async (gameId, callback) => {
     console.log(
       `Handling get-game event. Responding with game details for game: ${socket.gameId}`
     );
