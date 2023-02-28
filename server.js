@@ -79,7 +79,7 @@ io.on('connection', function (socket) {
     console.log(
       `Handling get-game event. Responding with game details for game: ${socket.gameId}`
     );
-    callback(scorecards.filter((scorecard) => scorecard.id === gameid)[0]);
+    callback(scorecards.filter((scorecard) => scorecard.gameId === gameid)[0]);
   });
 
   socket.on('disconnect', (reason) => {

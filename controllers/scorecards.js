@@ -26,21 +26,25 @@ exports.getScorecards = async (req, res, next) => {
 };
 
 /**
- * Get scorecard by id
- * @route GET /v1/scorecards/:id
+ * Get scorecard by gameId
+ * @route GET /v1/scorecards/:gameId
  */
-exports.getScorecardById = async (req, res, next) => {
+exports.getScorecardByGameId = async (req, res, next) => {
   res.header('Access-Control-Allow-Origin', origin);
   try {
     const found = scorecards.some(
-      (scorecard) => scorecard.id === req.params.id
+      (scorecard) => scorecard.gameId === req.params.gameId
     );
     if (found) {
       res.json(
-        scorecards.filter((scorecard) => scorecard.id === req.params.id)[0]
+        scorecards.filter(
+          (scorecard) => scorecard.gameId === req.params.gameId
+        )[0]
       );
     } else {
-      res.status(400).json({ msg: `No scorecard with id of ${req.params.id}` });
+      res
+        .status(400)
+        .json({ msg: `No scorecard with gameId of ${req.params.gameId}` });
     }
   } catch (error) {
     return res.status(500).json({
@@ -58,7 +62,7 @@ exports.addScorecard = async (req, res, next) => {
   res.header('Access-Control-Allow-Origin', origin);
   try {
     const newScorecard = {
-      id: hri.humanReadableIds.random(),
+      gameId: hri.humanReadableIds.random(),
       name: req.body.name,
       status: req.body.status,
       scorecard: req.body.scorecard,
@@ -85,7 +89,7 @@ exports.addScorecard = async (req, res, next) => {
     // TODO: consider having the server save the current scorecards to a local file
 
     // respond with newly created object
-    res.location('/api/sk-scorecard-api/v1/scorecards/' + newScorecard.id);
+    res.location('/api/sk-scorecard-api/v1/scorecards/' + newScorecard.gameId);
     res.status(201).json(newScorecard);
   } catch (error) {
     return res.status(500).json({
@@ -97,20 +101,20 @@ exports.addScorecard = async (req, res, next) => {
 
 /**
  * update a scorecard
- * @route PUT /v1/scorecards/:id
+ * @route PUT /v1/scorecards/:gameId
  */
 exports.updateScorecard = async (req, res, next) => {
   res.header('Access-Control-Allow-Origin', origin);
   try {
     const found = scorecards.some(
-      (scorecard) => scorecard.id === req.params.id
+      (scorecard) => scorecard.gameId === req.params.gameId
     );
 
     if (found) {
       const newScorecard = req.body;
 
       scorecards.forEach((scorecard) => {
-        if (scorecard.id === req.params.id) {
+        if (scorecard.gameId === req.params.gameId) {
           // update values that were in the body otherwise use old value
           scorecard.status = newScorecard.status || scorecard.status;
           scorecard.scorecard = newScorecard.scorecard || scorecard.scorecard;
@@ -124,13 +128,15 @@ exports.updateScorecard = async (req, res, next) => {
           // console.log(scorecard);
 
           // push update to all sockets in this game room
-          req.io.to(scorecard.id).emit('update-game', scorecard);
+          req.io.to(scorecard.gameId).emit('update-game', scorecard);
 
           // TODO: Consider saving the updated scorecards array to a file
         }
       });
     } else {
-      res.status(400).json({ msg: `No scorecard with id of ${req.params.id}` });
+      res
+        .status(400)
+        .json({ msg: `No scorecard with gameId of ${req.params.gameId}` });
     }
   } catch (error) {
     return res.status(500).json({
@@ -143,14 +149,14 @@ exports.updateScorecard = async (req, res, next) => {
 /**
  *
  * delete a scorecard
- * @route DELETE /v1/scorecards/:id
+ * @route DELETE /v1/scorecards/:gameId
  * @returns
  */
 exports.deleteScorecard = async (req, res, next) => {
   res.header('Access-Control-Allow-Origin', origin);
   try {
     const indexToRemove = scorecards.findIndex(
-      (scorecard) => scorecard.id === req.params.id
+      (scorecard) => scorecard.gameId === req.params.gameId
     );
 
     if (indexToRemove != -1) {
@@ -160,7 +166,9 @@ exports.deleteScorecard = async (req, res, next) => {
 
       res.status(204).send();
     } else {
-      res.status(400).json({ msg: `No scorecard with id of ${req.params.id}` });
+      res
+        .status(400)
+        .json({ msg: `No scorecard with gameId of ${req.params.gameId}` });
     }
   } catch (error) {
     return res.status(500).json({

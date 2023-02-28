@@ -2,26 +2,26 @@ const express = require('express');
 const router = express.Router();
 const {
   getScorecards,
-  getScorecardById,
+  getScorecardByGameId,
   addScorecard,
   updateScorecard,
   deleteScorecard,
-  optionsScorecard
+  optionsScorecard,
 } = require('../controllers/scorecards');
 
-
 // GET scorecards and POST a scoreacard
-router.route('/v1/scorecards')
+router
+  .route('/v1/scorecards')
   .get(getScorecards)
   .post(addScorecard)
   .options(optionsScorecard);
 
-// GET/PUT/DELETE a scorecard by id
-router.route('/v1/scorecards/:id')
-  .get(getScorecardById)
+// GET/PUT/DELETE a scorecard by gameId
+router
+  .route('/v1/scorecards/:gameId')
+  .get(getScorecardByGameId)
   .put(updateScorecard)
   .delete(deleteScorecard)
   .options(optionsScorecard);
-
 
 module.exports = router;
