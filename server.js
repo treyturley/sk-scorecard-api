@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const errorHandler = require('./middleware/errorMiddleware');
 
+const connectDB = require('./services/dbService');
 const { Server } = require('socket.io');
 
 const scorecards = require('./scorecards');
@@ -12,7 +13,8 @@ const scorecards = require('./scorecards');
 // point to env vars
 dotenv.config({ path: './config/config.env' });
 
-//define server
+// connect to db
+connectDB();
 const app = express();
 
 // config port
