@@ -1,5 +1,6 @@
 const hri = require('human-readable-ids');
 const scorecards = require('../scorecards');
+const asyncHandler = require('express-async-handler');
 
 let origin = process.env.PROD_CORS_ORIGIN;
 
@@ -11,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
  * Get all scorecards
  * @route GET /v1/scorecards
  */
-exports.getScorecards = async (req, res, next) => {
+exports.getScorecards = asyncHandler(async (req, res, next) => {
   res.header('Access-Control-Allow-Origin', origin);
   try {
     setTimeout(() => {
@@ -23,13 +24,13 @@ exports.getScorecards = async (req, res, next) => {
       error: 'Server Error',
     });
   }
-};
+});
 
 /**
  * Get scorecard by gameId
  * @route GET /v1/scorecards/:gameId
  */
-exports.getScorecardByGameId = async (req, res, next) => {
+exports.getScorecardByGameId = asyncHandler(async (req, res, next) => {
   res.header('Access-Control-Allow-Origin', origin);
   try {
     const found = scorecards.some(
@@ -52,13 +53,13 @@ exports.getScorecardByGameId = async (req, res, next) => {
       error: 'Server Error',
     });
   }
-};
+});
 
 /**
  * add a scorecard
  * @route POST /v1/scorecards
  */
-exports.addScorecard = async (req, res, next) => {
+exports.addScorecard = asyncHandler(async (req, res, next) => {
   res.header('Access-Control-Allow-Origin', origin);
   try {
     const newScorecard = {
@@ -97,13 +98,13 @@ exports.addScorecard = async (req, res, next) => {
       error: `Server Error: ${error}`,
     });
   }
-};
+});
 
 /**
  * update a scorecard
  * @route PUT /v1/scorecards/:gameId
  */
-exports.updateScorecard = async (req, res, next) => {
+exports.updateScorecard = asyncHandler(async (req, res, next) => {
   res.header('Access-Control-Allow-Origin', origin);
   try {
     const found = scorecards.some(
@@ -144,7 +145,7 @@ exports.updateScorecard = async (req, res, next) => {
       error: 'Server Error',
     });
   }
-};
+});
 
 /**
  *
@@ -152,7 +153,7 @@ exports.updateScorecard = async (req, res, next) => {
  * @route DELETE /v1/scorecards/:gameId
  * @returns
  */
-exports.deleteScorecard = async (req, res, next) => {
+exports.deleteScorecard = asyncHandler(async (req, res, next) => {
   res.header('Access-Control-Allow-Origin', origin);
   try {
     const indexToRemove = scorecards.findIndex(
@@ -176,9 +177,9 @@ exports.deleteScorecard = async (req, res, next) => {
       error: 'Server Error',
     });
   }
-};
+});
 
-exports.optionsScorecard = async (req, res, next) => {
+exports.optionsScorecard = asyncHandler(async (req, res, next) => {
   try {
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -190,4 +191,4 @@ exports.optionsScorecard = async (req, res, next) => {
       error: 'Server Error',
     });
   }
-};
+});
