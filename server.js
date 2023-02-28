@@ -4,8 +4,8 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const errorHandler = require('./middleware/errorMiddleware');
-
 const connectDB = require('./services/dbService');
+const { getGameByGameId } = require('./services/scorecardService');
 const { Server } = require('socket.io');
 
 // point to env vars
@@ -80,7 +80,8 @@ io.on('connection', function (socket) {
     console.log(
       `Handling get-game event. Responding with game details for game: ${socket.gameId}`
     );
-    callback(scorecards.filter((scorecard) => scorecard.gameId === gameid)[0]);
+    const scorecard = await getGameByGameId(socket.gameId);
+    callback(scorecard);
   });
 
   socket.on('disconnect', (reason) => {
