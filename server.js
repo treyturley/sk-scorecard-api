@@ -8,8 +8,6 @@ const errorHandler = require('./middleware/errorMiddleware');
 const connectDB = require('./services/dbService');
 const { Server } = require('socket.io');
 
-const scorecards = require('./scorecards');
-
 // point to env vars
 dotenv.config({ path: './config/config.env' });
 
