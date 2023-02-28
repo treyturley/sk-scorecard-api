@@ -115,4 +115,4 @@ app.use(function (req, res, next) {
 app.use(errorHandler);
 
 // hook route into middleware here
-app.use('/api/sk-scorecard-api', require('./routes/scorecards'));
+app.use('/api/sk-scorecard-api', require('./routes/scorecardRoutes'));

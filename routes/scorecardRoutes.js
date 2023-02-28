@@ -7,7 +7,7 @@ const {
   updateScorecard,
   deleteScorecard,
   optionsScorecard,
-} = require('../controllers/scorecards');
+} = require('../controllers/scorecardController');
 
 // GET scorecards and POST a scoreacard
 router
