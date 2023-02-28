@@ -3,6 +3,7 @@ const colors = require('colors');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const errorHandler = require('./middleware/errorMiddleware');
 
 const { Server } = require('socket.io');
 
@@ -108,6 +109,9 @@ app.use(function (req, res, next) {
   req.io = io;
   next();
 });
+
+// middleware for the async error handler
+app.use(errorHandler);
 
 // hook route into middleware here
 app.use('/api/sk-scorecard-api', require('./routes/scorecards'));
