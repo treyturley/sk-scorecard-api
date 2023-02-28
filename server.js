@@ -75,7 +75,9 @@ io.on('connection', function (socket) {
 
   // handle player request for scorecard
   socket.on('get-game', (gameid, callback) => {
-    console.log(`get-game checking for socket game. game: ${socket.gameId}`);
+    console.log(
+      `Handling get-game event. Responding with game details for game: ${socket.gameId}`
+    );
     callback(scorecards.filter((scorecard) => scorecard.id === gameid)[0]);
   });
 
