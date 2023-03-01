@@ -1,6 +1,5 @@
 # sk-scorecard-api
-This api was created to support the sk-scorecard-react project by providing a backend that can keep track of active games.
-Currently the scorecards are kept in memory by the server however in the future a database will be used to store them.
+This api was created to support the [sk-scorecard-react](https://github.com/treyturley/sk-scorecard-react) project by providing a backend that can keep track of active games. It supports CRUD operations for the scorecards and utilizes Socket.IO for pushing updates to the players in realtime.
 
 ## Supported Operations
 
@@ -189,3 +188,7 @@ Response: JSON body with the updated scorecard
 ### Delete a Scorecard
 Endpoint: DELETE /api/v1/scorecards/:id
 Response: 204 No Content on successful deletion
+
+## Production Deployments
+
+Automated deployments to treyturley.com are configured for this project. Any changes made to the main branch will trigger a GitHub webhook which then starts a Jenkins pipeline to build and deploy the branch. Changes to main can only be made via pull request.

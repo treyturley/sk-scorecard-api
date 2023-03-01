@@ -1,2 +1,3 @@
 node_modules
 push to heroku.txt
+config/config.env
