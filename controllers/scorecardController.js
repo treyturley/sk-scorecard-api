@@ -4,11 +4,7 @@ const asyncHandler = require('express-async-handler');
 const Scorecard = require('../models/scorecardModel');
 const { getGameByGameId } = require('../services/scorecardService');
 
-let origin = process.env.PROD_CORS_ORIGIN;
-
-if (process.env.NODE_ENV === 'development') {
-  origin = process.env.DEV_CORS_ORIGIN;
-}
+let origin = process.env.CORS_ORIGIN;
 
 /**
  * Get all scorecards

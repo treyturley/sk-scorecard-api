@@ -18,11 +18,7 @@ const app = express();
 // config port
 const PORT = process.env.PORT || 5000;
 
-let origin = process.env.PROD_CORS_ORIGIN;
-
-if (process.env.NODE_ENV === 'development') {
-  origin = process.env.DEV_CORS_ORIGIN;
-}
+let origin = process.env.CORS_ORIGIN;
 
 const io = new Server(
   app.listen(
